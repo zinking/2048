@@ -5,6 +5,8 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.actuator       = new Actuator;
 
   this.startTiles     = 2;
+  this.movecount          = 0;
+  this.move2count          = 0;
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
@@ -47,12 +49,16 @@ GameManager.prototype.setup = function () {
     this.over        = previousState.over;
     this.won         = previousState.won;
     this.keepPlaying = previousState.keepPlaying;
+    this.movecount   = previousState.movecount;
+    this.move2count   = previousState.move2count;
   } else {
     this.grid        = new Grid(this.size);
     this.score       = 0;
     this.over        = false;
     this.won         = false;
     this.keepPlaying = false;
+    this.movecount   = 0;
+    this.move2count   = 0;
 
     // Add the initial tiles
     this.addStartTiles();
@@ -97,7 +103,9 @@ GameManager.prototype.actuate = function () {
     over:       this.over,
     won:        this.won,
     bestScore:  this.storageManager.getBestScore(),
-    terminated: this.isGameTerminated()
+    terminated: this.isGameTerminated(),
+    movecount: this.movecount,
+    move2count: this.move2count
   });
 
 };
@@ -107,6 +115,8 @@ GameManager.prototype.serialize = function () {
   return {
     grid:        this.grid.serialize(),
     score:       this.score,
+    movecount:       this.movecount,
+    move2count:       this.move2count,
     over:        this.over,
     won:         this.won,
     keepPlaying: this.keepPlaying
@@ -142,6 +152,8 @@ GameManager.prototype.move = function (direction) {
   var vector     = this.getVector(direction);
   var traversals = this.buildTraversals(vector);
   var moved      = false;
+  
+  self.movecount++;
 
   // Save the current tile positions and remove merger information
   this.prepareTiles();
@@ -185,6 +197,7 @@ GameManager.prototype.move = function (direction) {
 
   if (moved) {
     this.addRandomTile();
+    self.move2count++;
 
     if (!this.movesAvailable()) {
       this.over = true; // Game over!

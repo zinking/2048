@@ -89,11 +89,16 @@ h1.title {
     -moz-animation-fill-mode: both;
     animation-fill-mode: both; }
 
-.score-container:after {
-  content: "Score"; }
 
-.best-container:after {
+#move:after {
+  content: "Move"; }
+#score:after {
+  content: "Score"; }
+#best:after {
   content: "Best"; }
+#move2:after {
+  content: "ValidMove"; }
+
 
 p {
   margin-top: 0;
@@ -496,6 +501,7 @@ hr {
   height: 40px;
   line-height: 42px;
   display: block;
+  margin-right:5px;
   text-align: center;
   float: right; }
 

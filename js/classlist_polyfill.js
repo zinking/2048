@@ -18,7 +18,7 @@
       push.call(this, classes[i]);
     }
   }
-
+  //helper function to manage class of DOM
   DOMTokenList.prototype = {
     add: function (token) {
       if (this.contains(token)) return;
@@ -64,7 +64,8 @@
       obj.__defineGetter__(prop, getter);
     }
   }
-
+  
+  //added classlist Prop to document
   defineElementGetter(HTMLElement.prototype, 'classList', function () {
     return new DOMTokenList(this);
   });

@@ -1,12 +1,17 @@
 function HTMLActuator() {
   this.tileContainer    = document.querySelector(".tile-container");
-  this.scoreContainer   = document.querySelector(".score-container");
-  this.bestContainer    = document.querySelector(".best-container");
+  //this.scoreContainer   = document.querySelector(".score-container");
+  this.scoreContainer   = document.querySelector("#score");
+  this.moveContainer   = document.querySelector("#move");
+  this.move2Container   = document.querySelector("#move2");
+  //this.bestContainer    = document.querySelector(".best-container");
+  this.bestContainer    = document.querySelector("#best");
   this.messageContainer = document.querySelector(".game-message");
 
   this.score = 0;
 }
 
+//actuate means using a frame of animation to update the tiles
 HTMLActuator.prototype.actuate = function (grid, metadata) {
   var self = this;
 
@@ -21,8 +26,13 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
       });
     });
 
-    self.updateScore(metadata.score);
+    //self.updateScore(metadata.score);
+    self.updateScoreContainer( metadata.score, self.scoreContainer )
+    //self.updateScoreContainer( metadata.bestScore, self.bestContainer )
+    self.updateScoreContainer( metadata.movecount, self.moveContainer )
+    self.updateScoreContainer( metadata.move2count, self.move2Container )
     self.updateBestScore(metadata.bestScore);
+    //self.updateMove( metadata.movecount)
 
     if (metadata.terminated) {
       if (metadata.over) {
@@ -117,6 +127,23 @@ HTMLActuator.prototype.updateScore = function (score) {
     addition.textContent = "+" + difference;
 
     this.scoreContainer.appendChild(addition);
+  }
+};
+
+HTMLActuator.prototype.updateScoreContainer = function (score, container) {
+  this.clearContainer(container);
+
+  var difference = score - this.score;
+  this.score = score;
+
+  container.textContent = this.score;
+
+  if (difference > 0) {
+    var addition = document.createElement("div");
+    addition.classList.add("score-addition");
+    addition.textContent = "+" + difference;
+
+    container.appendChild(addition);
   }
 };
 

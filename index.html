@@ -17,17 +17,33 @@
   <div class="container">
     <div class="heading">
       <h1 class="title">2048</h1>
-      <div class="scores-container">
-        <div class="score-container">0</div>
-        <div class="best-container">0</div>
-      </div>
+      <!--<div class="scores-containers">
+        <div id="score" class="score-container">0</div>
+        <div id="best" class="score-container">0</div>
+        <div id="move" class="score-container">0</div>
+        <div id="move2" class="score-container">0</div>
+      </div>-->
     </div>
+    <p>
+      <div class="scores-containers">
+        <div id="score" class="score-container">0</div>
+        <div id="best" class="score-container">0</div>
+        <div id="move" class="score-container">0</div>
+        <div id="move2" class="score-container">0</div>
+
+    </div>
+      </p>
+
+    <p>
+      <a class="restart-button">New Game</a>
+      <a class="restart-button" onclick="ai.begin()">StartAI1</a>
+    </p>
 
     <div class="above-game">
       <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
-      <a class="restart-button">New Game</a>
     </div>
-
+    
+    
     <div class="game-container">
       <div class="game-message">
         <p></p>
@@ -82,7 +98,7 @@
     </p>
   </div>
 
-  <script src="js/bind_polyfill.js"></script>
+  <script src="js/bind_polyfill.js"></script> <!--add bind function to FUNCTION proto -->
   <script src="js/classlist_polyfill.js"></script>
   <script src="js/animframe_polyfill.js"></script>
   <script src="js/keyboard_input_manager.js"></script>
@@ -91,6 +107,7 @@
   <script src="js/tile.js"></script>
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
+  <script src="js/game_ai.js"></script>
   <script src="js/application.js"></script>
 </body>
 </html>

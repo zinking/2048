@@ -1,6 +1,7 @@
 (function() {
   var lastTime = 0;
   var vendors = ['webkit', 'moz'];
+  //unify the ani function name
   for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
     window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
     window.cancelAnimationFrame =
