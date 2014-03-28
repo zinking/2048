@@ -211,7 +211,7 @@ GameManager.prototype.move = function (direction) {
 GameManager.prototype.getVector = function (direction) {
   // Vectors representing tile movement
   var map = {
-    0: { x: 0,  y: -1 }, // Up
+    0: { x: 0,  y: -1 }, // Up -- 0-3 0-3 x+ y+ so up
     1: { x: 1,  y: 0 },  // Right
     2: { x: 0,  y: 1 },  // Down
     3: { x: -1, y: 0 }   // Left
@@ -232,6 +232,8 @@ GameManager.prototype.buildTraversals = function (vector) {
   // Always traverse from the farthest cell in the chosen direction
   if (vector.x === 1) traversals.x = traversals.x.reverse();
   if (vector.y === 1) traversals.y = traversals.y.reverse();
+  //0 -1 : (0,0) (1,1) (2,2) (3,3)
+  //0  1 : (0,3) (1,2) (2,1) (3,0)
 
   return traversals;
 };
@@ -243,7 +245,7 @@ GameManager.prototype.findFarthestPosition = function (cell, vector) {
   do {
     previous = cell;
     cell     = { x: previous.x + vector.x, y: previous.y + vector.y };
-  } while (this.grid.withinBounds(cell) &&
+  } while (this.grid.withinBounds(cell) && //duplicated check though
            this.grid.cellAvailable(cell));
 
   return {
